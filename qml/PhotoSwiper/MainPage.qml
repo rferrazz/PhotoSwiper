@@ -19,25 +19,16 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
-import QmlSharing 1.0
 
 Page {
     id: root
+    tools: commonTools
     orientationLock: PageOrientation.LockPortrait
     property bool tracking: false
     property int globalX
     property int globalY
     property string currImg
     signal preload(string filepath);
-
-    ImageSender{
-        id: sender
-        property bool toSend: false;
-        onImageSent: {
-            toSend = false;
-        }
-    }
-
 
     Rectangle{
         color: "black"
@@ -105,19 +96,6 @@ Page {
                     color: "black"
                     opacity: 0
                 }
-            }
-        }
-        ButtonTransparent{
-            id: info
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            anchors.bottomMargin: 10
-            anchors.rightMargin: 10
-            width: 60
-            height: 60
-            text: "?"
-            onClicked: {
-                infoDialog.open();
             }
         }
         Rectangle{

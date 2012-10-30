@@ -50,6 +50,7 @@ signals:
     
 public slots:
     void sendImage(QString imageLocation, int height);
+    void setReciver(QString adress, int port);
 
 private slots:
     void dnsResults();

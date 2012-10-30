@@ -19,6 +19,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import QmlSettings 1.0
+import QmlSharing 1.0
 
 PageStackWindow {
     id: appWindow
@@ -29,12 +30,24 @@ PageStackWindow {
         Qt.quit();
     }
 
+    ImageSender{
+        id: sender
+        property bool toSend: false;
+        onImageSent: {
+            toSend = false;
+        }
+    }
+
     MainPage {
         id: mainPage
     }
 
     FirstLoadPage{
         id: firstLoad
+    }
+
+    PageSettings{
+        id: settingsPage
     }
 
     Menu {
@@ -61,8 +74,26 @@ PageStackWindow {
         }
     }
 
+    ToolBarLayout {
+        id: commonTools
+        visible: true
+        ToolIcon{
+            platformIconId:(enabled) ? "toolbar-back" : "toolbar-back-dimmed"
+            onClicked: {
+                pageStack.pop();
+            }
+            enabled: (pageStack.depth > 1) ? true : false
+        }
+        ToolIcon {
+            platformIconId: "toolbar-settings"
+            anchors.right: (parent === undefined) ? undefined : parent.right
+            onClicked: pageStack.push(settingsPage);
+        }
+    }
+
     Component.onCompleted: {
+        theme.inverted = true;
         settings.initSettings("RFCode", "PhotoSwiper");
-        settings.getOption("firstBootDone")
+        settings.getOption("firstBootDone");
     }
 }

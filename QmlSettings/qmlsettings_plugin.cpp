@@ -24,7 +24,7 @@
 void QmlSettingsPlugin::registerTypes(const char *uri)
 {
     // @uri QmlSettings
-    qmlRegisterType<QmlSettings>(uri, 1, 0, "QmlSettings");
+    qmlRegisterType<QmlSettings>(uri, 1, 0, "Settings");
 }
 
 Q_EXPORT_PLUGIN2(QmlSettings, QmlSettingsPlugin)

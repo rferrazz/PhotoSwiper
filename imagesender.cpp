@@ -81,6 +81,10 @@ void ImageSender::sendRequest(){
     request->query("_imageserver._tcp.local", QJDns::Ptr);
 }
 
+void ImageSender::setReciver(QString adress, int port){
+    adresses->insert(QHostAddress(adress), port);
+}
+
 void ImageSender::sendImage(QString imageLocation, int height){
     QImage image(imageLocation);
     if(height > 0){
