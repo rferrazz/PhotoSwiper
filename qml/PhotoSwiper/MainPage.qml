@@ -24,6 +24,7 @@ Page {
     id: root
     tools: commonTools
     orientationLock: PageOrientation.LockPortrait
+    property bool canSend: false
     property bool tracking: false
     property int globalX
     property int globalY
@@ -68,7 +69,7 @@ Page {
                     }
                     onReleased: {
                         if(tracking){
-                            if(globalY < send.height){
+                            if(globalY < send.height && canSend){
                                 sender.sendImage(model.url, 0);
                                 sender.toSend = true;
                             }
@@ -98,12 +99,12 @@ Page {
             height: 100
             anchors.top: parent.top
             anchors.topMargin: -100
-            color: "green"
+            color: canSend ? "green" : "red"
             Text{
                 id: sendText
                 color: "#ffffff"
                 anchors.fill: parent
-                text: "Send"
+                text: canSend ? "Send" : "Can't send"
                 font.pointSize: 30
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter

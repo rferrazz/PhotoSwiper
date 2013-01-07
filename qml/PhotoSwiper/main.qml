@@ -37,6 +37,9 @@ PageStackWindow {
         onImageSent: {
             toSend = false;
         }
+        onAddressAdded: {
+            mainPage.canSend = true;
+        }
     }
 
     MainPage {

@@ -46,6 +46,7 @@ public:
     explicit ImageSender(QObject *parent = 0);
     
 signals:
+    void addressAdded();
     void imageSent();
     
 public slots:

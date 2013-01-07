@@ -72,8 +72,10 @@ void ImageSender::dnsResults(){
             request->query(results[0].name, QJDns::A);
             break;
         case QJDns::A:
-            if(!adresses->contains(results[0].address))
+            if(!adresses->contains(results[0].address)){
                 adresses->insert(results[0].address, lastPort);
+                emit addressAdded();
+            }
         }
     }
 }
@@ -84,6 +86,7 @@ void ImageSender::sendRequest(){
 
 void ImageSender::setReciver(QString adress, int port){
     adresses->insert(QHostAddress(adress), port);
+    emit addressAdded();
 }
 
 void ImageSender::sendImage(QString imageLocation, int height){
