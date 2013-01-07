@@ -5,6 +5,8 @@ Page{
     id: root
     tools: commonTools
     signal setServer(string ip, string port)
+    property string adress: ""
+    property string port: "6017"
 
     HeaderBar{
         id: header
@@ -21,14 +23,15 @@ Page{
         Column{
             width: parent.width
             Label{
-                text: qsTr("Server IP")
+                text: qsTr("Server IP or hostname")
                 font: UiConstants.FieldLabelFont
             }
             TextField{
                 id: ip
                 width: parent.width
                 font: UiConstants.FieldLabelFont
-                text: (!settings.getOption("adress")) ? "" : settings.getOption("adress")
+                text: root.adress
+                inputMethodHints: Qt.ImhUrlCharactersOnly
             }
         }
         Column{
@@ -42,7 +45,7 @@ Page{
                 width: parent.width
                 font: UiConstants.FieldLabelFont
                 inputMask: "9999"
-                text: (!settings.getOption("port")) ? "6017" : settings.getOption("port")
+                text: root.port
                 inputMethodHints: Qt.ImhDigitsOnly
             }
         }

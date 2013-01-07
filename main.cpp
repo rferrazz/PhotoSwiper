@@ -1,5 +1,5 @@
 /*
-* one line to give the program's name and an idea of what it does.
+* Photo Swiper
 * Copyright (C) 2012  Riccardo Ferrazzo <f.riccardo87@gmail.com>
 
 * This program is free software; you can redistribute it and/or
@@ -18,11 +18,12 @@
 */
 #include <QtGui/QApplication>
 #include <QtDeclarative>
+#include <QSparqlQueryModel>
 #include "qmlapplicationviewer.h"
 #include "imagesender.h"
-#include "cachedimageprovider.h"
 #include "QmlSettings/qmlsettings.h"
-#include "firsttimeloader.h"
+#include "PhotoPicker/photomodelbuilder.h"
+#include "PhotoPicker/photoitem.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -36,10 +37,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     qmlRegisterType<ImageSender>("QmlSharing", 1, 0, "ImageSender");
     qmlRegisterType<QmlSettings>("QmlSettings", 1, 0, "Settings");
-    qmlRegisterType<FirstTimeLoader>("QmlSharing", 1, 0, "FirstTimeLoader");
+    qmlRegisterType<PhotoItem>("PhotoPicker", 1, 0, "PhotoItem");
+
 
     QmlApplicationViewer viewer;
-    viewer.engine()->addImageProvider("cache", new CachedImageProvider());
+    viewer.rootContext()->setContextProperty("photomodel", PhotoModelBuilder::instance().model());
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer.setMainQmlFile(QLatin1String("qml/PhotoSwiper/main.qml"));
     viewer.showExpanded();

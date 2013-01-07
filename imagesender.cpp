@@ -19,6 +19,7 @@
 #include "imagesender.h"
 
 #include <QTimer>
+#include <QDebug>
 
 SocketThread::SocketThread(QHostAddress address, int port, QImage data, QObject *parent) :
     QThread(parent)
@@ -86,7 +87,8 @@ void ImageSender::setReciver(QString adress, int port){
 }
 
 void ImageSender::sendImage(QString imageLocation, int height){
-    QImage image(imageLocation);
+    qDebug() << QUrl(imageLocation).toLocalFile();
+    QImage image(QUrl(imageLocation).toLocalFile());
     if(height > 0){
         image = image.scaledToHeight(height);
     }

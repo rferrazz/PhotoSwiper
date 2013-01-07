@@ -1,7 +1,7 @@
 Source: photoswiper
 Section: user/other
 Priority: optional
-Maintainer: Riccardo Ferrazzo <riccardo@unknown>
+Maintainer: Riccardo Ferrazzo <f.riccardo87@gmail.com>
 Build-Depends: debhelper (>= 5), libqt4-dev
 Standards-Version: 3.7.3
 Homepage: http://www.rfcode.eu

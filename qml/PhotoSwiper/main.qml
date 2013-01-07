@@ -24,6 +24,7 @@ import QmlSharing 1.0
 PageStackWindow {
     id: appWindow
     showStatusBar: false
+    initialPage: mainPage
 
     function firstBootTerminated(){
         settings.setOption("firstBootDone", true);
@@ -42,12 +43,9 @@ PageStackWindow {
         id: mainPage
     }
 
-    FirstLoadPage{
-        id: firstLoad
-    }
-
     PageSettings{
         id: settingsPage
+
     }
 
     Menu {
@@ -62,13 +60,12 @@ PageStackWindow {
     Settings{
         id: settings
         onOptionGetted:{
-            if(optionName == "firstBootDone"){
-                if(optionValue == "false"){
-                    settings.setOption("firstBootDone", false);
-                    pageStack.push(firstLoad);
-                    firstLoad.startWork();
-                } else {
-                    pageStack.push(mainPage);
+            if(optionValue !== "" && optionValue !== false){
+                if(optionName == "adress"){
+                    settingsPage.adress = optionValue;
+                }
+                if(optionName == "port"){
+                    settingsPage.port = optionValue;
                 }
             }
         }
@@ -94,6 +91,7 @@ PageStackWindow {
     Component.onCompleted: {
         theme.inverted = true;
         settings.initSettings("RFCode", "PhotoSwiper");
-        settings.getOption("firstBootDone");
+        settings.getOption("adress");
+        settings.getOption("port");
     }
 }

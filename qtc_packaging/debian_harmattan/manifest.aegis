@@ -42,9 +42,9 @@ AutoGenerateAegisFile
 	-->
 
 		<!-- Read access to data stored in tracker. -->
-	<!--
-		<credential name="TrackerReadAccess" />
-	-->
+        <!--
+                <credential name="TrackerReadAccess" />
+        -->
 
 		<!-- Read and write access to data stored in tracker. -->
 	<!--

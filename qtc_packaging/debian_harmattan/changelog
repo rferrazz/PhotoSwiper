@@ -1,3 +1,14 @@
+photoswiper (1.9.0) unstable; urgency=low
+  * <Add change description here>
+
+ -- Riccardo Ferrazzo <riccardo@unknown>  Thu, 03 Jan 2013 00:01:47 +0100
+
+photoswiper (1.8.0) unstable; urgency=low
+  * quil is now used to display thumbnails
+  * added a way tomanual set the reciver ip adress
+
+ -- Riccardo Ferrazzo <riccardo@unknown>  Fri, 07 Dec 2012 15:12:20 +0100
+
 photoswiper (1.7.0) unstable; urgency=low
   * <Add change description here>
 

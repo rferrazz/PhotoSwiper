@@ -2,13 +2,14 @@
 folder_01.source = qml/PhotoSwiper
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
+INCLUDEPATH += /usr/include/applauncherd
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
 symbian:TARGET.UID3 = 0xE3078780
 
-QT += network declarative
+QT += network declarative dbus
 
 # Smart Installer package's UID
 # This UID is from the protected range and therefore the package will
@@ -27,6 +28,9 @@ symbian:TARGET.CAPABILITY += NetworkServices
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 CONFIG += qdeclarative-boostable
+CONFIG += quill quillimagefilter quillmetadata
+CONFIG += qtsparql
+LIBS += -lQtSparql -lmdeclarativecache
 
 # Add dependency to Symbian components
 # CONFIG += qt-components
@@ -34,8 +38,9 @@ CONFIG += qdeclarative-boostable
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     imagesender.cpp \
-    cachedimageprovider.cpp \
-    firsttimeloader.cpp
+    PhotoPicker/photomodelbuilder.cpp \
+    PhotoPicker/photoloader.cpp \
+    PhotoPicker/photoitem.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -54,6 +59,8 @@ OTHER_FILES += \
 
 HEADERS += \
     imagesender.h \
-    cachedimageprovider.h \
-    firsttimeloader.h \
-    constants.h
+    constants.h \
+    PhotoPicker/photothumbnail.h \
+    PhotoPicker/photomodelbuilder.h \
+    PhotoPicker/photoloader.h \
+    PhotoPicker/photoitem.h

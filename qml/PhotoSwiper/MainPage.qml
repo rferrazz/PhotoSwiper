@@ -18,7 +18,7 @@
 */
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import QtMobility.gallery 1.1
+import PhotoPicker 1.0
 
 Page {
     id: root
@@ -37,33 +37,21 @@ Page {
         GridView{
             id: view
             anchors.fill: parent
-            cellWidth: root.width/3
+            cellWidth: 160
             cellHeight: cellWidth
-            cacheBuffer: height*1.5
+            cacheBuffer: 1600
             clip: true
             pressDelay: 200
-            model: DocumentGalleryModel{
-                id: galleryModel
-                rootType: DocumentGallery.Image
-                properties: [ "filePath", "url", "orientation", "fileName" ]
-                sortProperties: ["-dateTaken", "-lastModified"]
-            }
-
-            delegate: Image {
-                property string file: filePath
-                source: "image://cache/"+filePath
-                width: view.cellWidth
-                height: view.cellHeight
-                sourceSize.width: width
-                fillMode: Image.PreserveAspectCrop
-                clip: true
-                cache: true
-                asynchronous: true
+            model: photomodel
+            delegate: PhotoItem {
+                id: item
+                url: model.url
+                pressed: sendMouseArea.pressed
                 MouseArea{
                     id: sendMouseArea
                     anchors.fill: parent
                     onPressed: {
-                        currImg = url
+                        currImg = model.url
                         view.interactive = false;
                         tracking = true;
                         var pos = sendMouseArea.mapToItem(root, mouseX, mouseY);
@@ -81,7 +69,7 @@ Page {
                     onReleased: {
                         if(tracking){
                             if(globalY < send.height){
-                                sender.sendImage(file, 0);
+                                sender.sendImage(model.url, 0);
                                 sender.toSend = true;
                             }
                             tracking = !tracking;
@@ -207,24 +195,5 @@ Page {
             }
 
         ]
-    }
-    Dialog{
-        id: infoDialog
-        title: Text {
-            width: parent.width
-            color: "white"
-            font.pixelSize: 32
-            text: "Photo Swiper"
-            horizontalAlignment: Text.AlignHCenter
-        }
-        content: Text{
-            color: "white"
-            font.pixelSize: 24
-            wrapMode: Text.WordWrap
-            width: parent.width
-            text: "<p>To learn more about photoSwiper and to keep in touch with updates on the client visit <a href=\"http://www.rfcode.eu/\">http://www.rfcode.eu</a></p>
-                    <p>In order to use this application you have to download the open source client application on your desktop PC, you can find it here: <a href=\"http://www.rfcode.eu/?p=18\">http://goo.gl/zCusg</a></p>"
-            onLinkActivated: {Qt.openUrlExternally(link)}
-        }
     }
 }
